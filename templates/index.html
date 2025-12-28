@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Tarefas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="conteiner">
+        <h1>Minhas Tarefas (Python + SQL)</h1>
+        
+        <form action="/adicionar" method="POST">
+            <input type="text" name="conteudo" placeholder="Nova tarefa..." required>
+            <button type="submit">Adicionar</button>
+        </form>
+
+        <ul>
+            {% for tarefa in tarefas %}
+            <li class="{{ 'concluida' if tarefa.concluida else '' }}">
+                <span>{{ tarefa.conteudo }}</span>
+                <div class="botoes">
+                    <a href="/atualizar/{{ tarefa.id }}" class="btn-check">✔</a>
+                    <a href="/deletar/{{ tarefa.id }}" class="btn-delete">✖</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
