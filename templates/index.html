@@ -3,29 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciador de Tarefas</title>
+    <title>Gerenciador Pro</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="conteiner">
-        <h1>Minhas Tarefas (Python + SQL)</h1>
+        <header>
+            <h1>Minhas Tarefas</h1>
+            <button id="toggle-theme" class="btn-theme">
+                <span class="material-icons">dark_mode</span>
+            </button>
+        </header>
         
         <form action="/adicionar" method="POST">
-            <input type="text" name="conteudo" placeholder="Nova tarefa..." required>
-            <button type="submit">Adicionar</button>
+            <input type="text" name="conteudo" placeholder="O que precisa ser feito?" required autocomplete="off">
+            
+            <select name="categoria" class="select-cat">
+                <option value="Pessoal">Pessoal</option>
+                <option value="Trabalho">Trabalho</option>
+                <option value="Estudo">Estudo</option>
+                <option value="Urgente">Urgente</option>
+            </select>
+
+            <button type="submit" class="btn-add">
+                <span class="material-icons">add</span>
+            </button>
         </form>
 
         <ul>
             {% for tarefa in tarefas %}
-            <li class="{{ 'concluida' if tarefa.concluida else '' }}">
-                <span>{{ tarefa.conteudo }}</span>
+            <li class="{{ 'concluida' if tarefa.concluida else '' }} cat-{{ tarefa.categoria.lower() }}">
+                <div class="info">
+                    <span class="badge">{{ tarefa.categoria }}</span>
+                    <span class="texto">{{ tarefa.conteudo }}</span>
+                </div>
                 <div class="botoes">
-                    <a href="/atualizar/{{ tarefa.id }}" class="btn-check">✔</a>
-                    <a href="/deletar/{{ tarefa.id }}" class="btn-delete">✖</a>
+                    <a href="/atualizar/{{ tarefa.id }}" class="btn-check">
+                        <span class="material-icons">check_circle</span>
+                    </a>
+                    <a href="/deletar/{{ tarefa.id }}" class="btn-delete">
+                        <span class="material-icons">delete</span>
+                    </a>
                 </div>
             </li>
             {% endfor %}
         </ul>
     </div>
+
+    <script>
+        // Lógica do Modo Escuro (Salva a escolha do usuário)
+        const toggleBtn = document.getElementById('toggle-theme');
+        const icon = toggleBtn.querySelector('span');
+        const body = document.body;
+
+        // Verifica se já tem preferência salva
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            icon.textContent = 'light_mode';
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                icon.textContent = 'light_mode';
+            } else {
+                localStorage.setItem('theme', 'light');
+                icon.textContent = 'dark_mode';
+            }
+        });
+    </script>
 </body>
 </html>

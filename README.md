@@ -16,13 +16,13 @@ Projeto desenvolvido para demonstrar competências em desenvolvimento Web Fullst
 * **Banco de Dados:** SQLite (via SQLAlchemy)
 * **Front-end:** HTML5 e CSS3
 
-## ⚙️ Funcionalidades (CRUD)
+## ⚙️ Funcionalidades (v2.0)
 
-O sistema permite o gerenciamento completo de tarefas:
-* **Create:** Adicionar novas tarefas ao banco de dados.
-* **Read:** Listar tarefas pendentes e concluídas.
-* **Update:** Marcar tarefas como concluídas (atualização de status no banco).
-* **Delete:** Remover tarefas do sistema.
+O sistema conta com recursos avançados de Front-end e Back-end:
+* **CRUD Completo:** Criação, leitura, atualização e exclusão de tarefas.
+* **Categorização:** Organização por tags (Pessoal, Trabalho, Estudo, Urgente) com armazenamento no banco SQL.
+* **Dark Mode:** Tema escuro/claro com persistência de preferência do usuário (via `localStorage` e CSS Variables).
+* **Interface Responsiva:** Design moderno adaptável a diferentes telas.
 
 ## 🔧 Como rodar o projeto
 
